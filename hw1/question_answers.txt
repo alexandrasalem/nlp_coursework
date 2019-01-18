@@ -1,0 +1,88 @@
+Part 0:
+Sample terminal output, showing perhaps the first 100 lines of its output:
+Below, are the first 30 lines from deserialized.txt:
+
+Mainland Chinese Foreign Minister Qian Qichen
+was highly skeptical of Tokyo's explanations of the content of the
+newly published US-Japan guidelines for defense cooperation when he
+met Monday in Beijing with representatives of Japan's press. Qian also said the time is not ripe yet for a trilateral official
+dialogue among Washington, Beijing and Tokyo on defense, adding that
+"scholarly discussion" would be appropriate at the present. Qian's remarks indicate that despite explanations of the new
+guidelines by Japanese Prime Minister Ryutaro Hashimoto and Foreign
+Minister Keizo Obuchi, Beijing is still very worried about whether
+Taiwan falls within the sphere of the bilateral defense agreement. According to reports in the Japanese media, among Qian's concerns
+are: -- If the defense pact is a matter between Washington and Tokyo,
+it should be unnecessary to renew it, hence putting its content into
+doubt. -- Although the new guidelines do not specifically mention
+geographic criteria, there is still speculation that they cover
+Taiwan. -- Some have argued for raising the transparency of the bilateral
+agreement, while others advocate keeping it ambiguous and opaque. The American Chamber of Commerce (AmCham) in
+Taipei on Wednesday appealed for an early conclusion of trade
+consultations between the United States and the Republic of China on
+terms for Taiwan to join the World Trade Organization (WTO). AmCham President Jeffrey R. Williams told a news conference that
+all AmCham members hope bilateral ROC-US WTO talks will be concluded
+as soon as possible to facilitate Taiwan's entry to the Geneva-based
+world trade regulatory body. According to Williams, most American business people with
+interests in Taiwan are convinced that they will benefit from
+Taiwan's WTO accession because Taiwan would be required to further
+open its market and better protect intellectual property rights. Williams, who just returned from a "doorknocking" visit to
+Washington, D.C. at the head of a 12-member AmCham delegation, said
+the US executive branch agreed with AmCham that Taiwan's WTO
+accession should not be linked to mainland China's membership
+application. "We agree that Taiwan's WTO entry should be considered completely
+on the basis of its own economic conditions," Williams said, adding
+that Taiwan is likely to conclude WTO-related trade consultations
+
+A sentence or two describing your approach and any bugs you encountered:
+My approach here is fairly simple. I walk through all the files in the cna_eng/ folder. For each file, I parse it using lxml, and pull out just the story paragraphs using xpath. Then, I write each of those paragraphs to "deserialized.txt". There was one main bug I encountered here. At first, I had not added a space after each added paragraph. This meant that later on when I parsed sentences, many were not detected. I fixed that by adding a space after each paragraph. 
+------------------------
+
+Part 1:
+How many sentences are there in the CNA-GW corpus?
+579780
+
+------------------------
+
+Part 2:
+How many unique types are present in this corpus?
+143493
+
+How about unigram tokens?
+16895549
+
+Produce a rank-frequency plot (similar to those seen on the Wikipedia page for Zipf's Law) for this corpus.
+I've attached this above. Note: I had some issues with creating this graph. I'm not sure if I've done it correctly. I tried to use log scales for both axes, and I sorted by frequency, but my shape doesn't seem quite right.
+
+What are the twenty most common words?
+['THE', 'TO', 'OF', 'AND', 'IN', 'A', 'THAT', 'TAIWAN', "'S", 'SAID', 'FOR', 'ON', 'WILL', 'WITH', 'IS', '``', 'AT', 'AS', 'BY', 'HE']
+
+You may notice that the most common are words that occur very frequently in the English language (stopwords). What happens to your type/token counts if you remove stopwords using nltk.corpora's stopwords list?
+Types: 143355
+Tokens: 10514286
+
+After removing stopwords, what are the 20 most common words?
+['TAIWAN', "'S", 'SAID', '``', "''", 'CHINA', 'PERCENT', 'GOVERNMENT', 'ALSO', 'CHEN', 'PRESIDENT', 'YEAR', 'TAIPEI', 'NT', 'TWO', 'MAINLAND', 'PEOPLE', 'US', 'NEW', 'CHINESE']
+This now seems to capture a more accurate representation of common words in the corpus.
+
+------------------------
+
+Part 3:
+Recalling Emily Bender's sage advice- "Look at your data!"- examine the 30 highest-PMI word pairs, along with their unigram and bigram frequencies. What do you notice?:
+These are my top thirty: [('HANNES', 'FARLEITER'), ('FREIE', 'DEMOKRATISCHE'), ('CEP006', '10-03-97'), ('NICOSIA', 'GORGIE'), ('GORGIE', 'MURADOV'), ('CAUSUS', 'BELLI'), ('HARDCOVER', 'GILT-EDGED'), ('FAYEZ', 'ZAWARNEH'), ('CEP002', '10-07-97'), ('NN1', 'NN2'), ('TULAGA', 'MANUELLA'), ('LUCILLE', 'ROYBAL-ALLARD'), ('HALLDOR', 'ASGRIMSSON'), ('WAHYO', 'DJATMIKO'), ('FLAVONOID', 'SPONIN'), ('ZCCZ', 'CEP007'), ('CEP007', '10-10-97'), ('FRIEDRICH', 'NAUMANN'), ('ANDRIS', 'AMERIKS'), ('GERMANIC', 'MANHOOD'), ('ZAIMAN', 'NURMATIAS'), ('ESTRADE', 'OYUELA'), ('TOFILAU', 'ETI'), ('STEPAN', 'KERKYASHARIAN'), ('ARY', 'MARDJONO'), ('MESUT', 'YILMAZ'), ('SIX-CYLINDER', '6.8-LITER'), ('BACRE', 'WALY'), ('AFTERTAX', 'WRITEDOWN'), ('HISAO', 'KANAMORI')]
+Many of these are names, that would only occur together.
+
+Experiment with a few different threshold values, and report on what you observe.
+Unfortunately, I was unable to get this part to work. My function for adding the threshold is throwing an error:
+---
+Traceback (most recent call last):
+  File "counting_and_comparing.py", line 109, in <module>
+    all_pmi_hundred = all_pmi(uni, hundred_bi)
+TypeError: 'collections.defaultdict' object is not callable
+---
+If I had more time I would've liked to figure this out, but unfortunately this assignment took me longer than I realized. 
+
+With a threshold of 100, what are the 10 highest-PMI word pairs?
+Again, couldn't produce because I couldn't fix my function. I believe that there would be fewer names, and more terms that have to occur together and occur together more often in the corpus.
+
+Examine the PMI for "New York". Explain in your own words why it is not higher.
+New York doesn't have too high a PMI because New occurs without York fairly often. PMI is high when the two words co-occur a lot, and don't occur often independently. The unigram count for NEW 31251.0, while the bigram count for NEW YORK is 1928.0.
