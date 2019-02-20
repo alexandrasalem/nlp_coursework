@@ -1,0 +1,59 @@
+Doing the model with 2 epochs produced a pretty good sample of names. However, changing to 4 epochs produced even better examples. "Howk" and "Mappower" seem a bit on the stranger side. But "Broxgerry", and "New Braganhaunt' seem spot on to me.
+
+2 epochs:
+Entheryn-Fsay
+Skenishan
+Howk
+Haldington
+Kingban
+Mappower
+Avonmale Green
+Upper Moless
+Watlow
+Brotteard
+
+
+4 epochs:
+Rulton
+Founsworth
+Broxgerry
+Worbeck
+Kingslaig
+Busham
+Trebhoeddain
+North
+New Bragnanhaunt
+Ascombe
+
+Below, I added the sample every 1000 training samples:
+0
+ IgUPxAxD6B7uùDxm!0Rh!Jm72Vr0GPRZTrF.à5yzAiFbZSdgiEDèPC5TúsQYDKm-jYaMàgòmvúmrCùPx&WuuD8DZoP0óTbePùDV'u7WGceKTfXs-DqglmPYFrdDjvu9PCàè''K2q4t8,k1à<BOS>L0úJè
+M5enp1j 94d!9LPwuQàAàz9-vCct<BOS>èBèMfàVRR<BOS>flcSqJnW39nQzúE1<BOS>5F&kxpO-EM-Pfà ZLm20LòM40ItDDGVMu51!gAQEògz7BLWgBd5<BOS>38JWùEkGBEJB,vDHdn0NfuRbùgv19BQ1ù0
+y7ZLdCv à7.ot1NC!GtBfX!ùCNCLLeOBjR3j547VHui3. J56PkjVtRk,qURe4ò lgB5DhJT7úNBèVz<BOS>5BRg5T9Jf8kcsVpKpRWún0nvuE0tD'5PxpdSj3TxI2ósù7vè!STa5K9ú&mb7v!umpRx<BOS>Bk&wErvàYòm&n74Fù67àèIúpàIúE4BdPgl rV8ShttGnòm--cW
+1000
+Gwol P
+Pgillotone
+Rolsan
+2000
+LWilpS Sdaood
+Brude
+Rencain
+3000
+leanth
+Frotnd Bilver
+Streeston ether Graes
+4000
+maston
+Dwornleriy
+Sdidertham
+5000
+Trow-acllyu Mode
+Whikerawgost
+Mollleamb
+6000
+Courdel
+Colpergal
+Burtcen
+7000
+
+I would say they already are looking pretty good after 6000 training examples.

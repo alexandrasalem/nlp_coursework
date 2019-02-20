@@ -1,0 +1,2 @@
+
+The confusion matrix shows us that the model performs better on some languages than others. Out of the five languages--German, English, French, Spanish, and Italian, German and English are likely the most dissimlar to the other languages, and Italian and Spanish are the most similar to each other. Thus, it makes sense that German and English were much easier to distinguish from other languags, while Italian and Spanish were very difficult to distinguish from each other.

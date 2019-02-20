@@ -1,0 +1,23 @@
+Here, I have my three paragraphs on the three functions for this assignment.
+
+1
+---
+In this function, I used a pretty simple recursion approach, based upon the notes given in the assignment, below:
+
+        * For each head immediately below the root:
+            - If head is terminal, continue
+            - Recursively apply the function
+            - If head is non-unary, continue
+            - If head's only daughter is terminal, continue
+            - If head's only granddaughter is unary and terminal, continue
+            - Merge the only daughter's label and promote its daughters
+I didn't really run into any bugs. However, it took me some time to figure out how to "promote" the daughters by doing "head.daughters = daughter[0:]". I think it took me time to become familiar with how the class worked--but once I was familiar, this part was straightforward.
+
+2
+---
+Again, I used recursion to implement this function. The issue I initially ran into was from not making the copy of the daughters for each head, when I would edit the heads. This meant that I couldn't access the correct labels to add to each new node I created, since the labels would change along the way through the recurssion. The original output I got had the wrong labels for many of the nodes. This was similar to the issue Philip posted in the slack--I don't have my results anymore but I was getting labels along the lines of "S|<,&NP&VP&.>" before fixing this issue. Using a copy fixed this, because it allowed me to change the daughters two at a time, while preserving the labels from the original tree to create the new labels.
+
+3
+---
+Again, I used recursion in this approach. It was a pretty straightforward problem. One issue I ran into, was sometimes my function would produce repeats of the productions. To be perfectly honest, I'm not exactly sure why this was happening. But, I dealt with it by checking if the production was already in the list. I think I was supposed to use sets so that I wouldn't run into this issue, but I used lists instead, so I just needed one extra line to fix it.
+

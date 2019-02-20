@@ -86,3 +86,5 @@ Again, couldn't produce because I couldn't fix my function. I believe that there
 
 Examine the PMI for "New York". Explain in your own words why it is not higher.
 New York doesn't have too high a PMI because New occurs without York fairly often. PMI is high when the two words co-occur a lot, and don't occur often independently. The unigram count for NEW 31251.0, while the bigram count for NEW YORK is 1928.0.
+
+Note: I used this reference: https://stackoverflow.com/questions/613183/how-do-i-sort-a-dictionary-by-value for sorting the dictionaries.

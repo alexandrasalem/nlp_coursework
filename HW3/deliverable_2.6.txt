@@ -1,0 +1,7 @@
+
+Here were original results I saw: In one model, I changed the embedding dimension from 10 to 15 and changed the lstm layers from 1 to 2. This led to an overall accuracy increase from .69 to .76. This also led to improving the accuracy of French (1730 predicted correctly instead of 1297). However, it didn't seem to improve the distinction between Spanish and Italian very much.
+
+(This changed for some reason when I reran it--not sure if something changed in LangID accidentally?) :(
+
+
+In a second model, I increased the number of epochs from 1 to 2 (and left the embedding dimensions as 10 and lstm layers as 1). This led to an overall accuracy increase from .69 to .79, which is the largest improvement I've seen. Additionally, I believe this led to the best confusion matrix, with 1827 French predicted accurately, and all others also higher. 

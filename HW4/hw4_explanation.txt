@@ -1,0 +1,70 @@
+HW 4 Explanation, NLP
+Alex Salem
+02-12-2019
+
+For this assignment, I created a very simple rule-based approach, and a logistic regression model. For both of these, I made use of ideas from chapter 5 of J&M on logisitic regression (which includes an example of sentence boundary detection).
+
+The main features I wanted to use were the case of the previous word, the case of the next word, and whether or not the previous word was an acronym. I was inspired to use these features partially from the J&M book, and from my own examination of the training data. The way I created my acronym list was by pulling out 100 random samples of the training data at a time to read, and writing down times that the candidate sentence was not a true break. Almost all of these times occured when there was an acronym that had a period in it.
+
+The rule-based approach was incredibly simple. I just pulled out the letter-case of the previous word and the next word, as well as whether the previous word was an acronym from my created list. I tried out a few different options working with these booleans, and ended up using the following approach: 
+    - If the previous word is an acronym, return False.
+    - If the previous word is not an acronym, return True if the previous word case is lowercase or the next word case is uppercase.
+
+Somehow, this very simple approach led to very good results. I got the following classification table:
+
+              precision    recall  f1-score   support
+
+       False       0.92      1.00      0.96      1963
+        True       1.00      0.98      0.99      7773
+
+   micro avg       0.98      0.98      0.98      9736
+   macro avg       0.96      0.99      0.97      9736
+weighted avg       0.98      0.98      0.98      9736
+
+
+This was actually my best results. This beat all three baselines and out of 9736 test candidates, I only misclassified 505.
+
+Here are some that I missed:
+My prediction: False
+Actual result: True
+Observation(left_token='Salinas', left_raw=' weigh so heavily on Mr. Salinas', punctuation_mark='.', right_token='``', right_raw='"The Japanese will come to Mexic', is_true_break=True, end_offset=2640, orig_obs=' weigh so heavily on Mr. Salinas. "The Japanese will come to Mexic')
+My prediction: True
+Actual result: False
+Observation(left_token='W', left_raw='needed to be done. When Thomas W', punctuation_mark='.', right_token='Wathen', right_raw='Wathen went big league last year', is_true_break=False, end_offset=18077, orig_obs='needed to be done. When Thomas W. Wathen went big league last year')
+My prediction: False
+Actual result: True
+Observation(left_token='Inc', left_raw="curity business: Pinkerton's Inc", punctuation_mark='.', right_token='There', right_raw='There was a wanted poster offeri', is_true_break=True, end_offset=18224, orig_obs="curity business: Pinkerton's Inc. There was a wanted poster offeri")
+
+The problems typically occured when there was a proper noun at the end of the sentence. I expect one way you could deal with this is to have a dictionary of proper nouns, in addition to the acronyms. The difficulty here would be names though. Additionally, there was one example above where "Inc." occured at the end of the sentence. The rule-based methods definitely doesn't catch that either.
+
+
+For logistic regression, I used the same features, and encoded them as 3-dimensional tensors. After training the model for 1000 epochs, I got the following results on the test data:
+
+              precision    recall  f1-score   support
+
+       False       0.93      0.83      0.88      2205
+        True       0.95      0.98      0.97      7531
+
+   micro avg       0.95      0.95      0.95      9736
+   macro avg       0.94      0.91      0.92      9736
+weighted avg       0.95      0.95      0.95      9736
+
+These results are also very good. I still beat all three baselines. They are perhaps not quite as good as my rule-based approach, though I guess it depends on what you care about. I only misclassifed 502 candidates here. Additionally, looking at the results, it appears that logistic regression is learning something similar to what I did.
+
+
+Here are some that I missed using logistic regression:
+My prediction: True
+Actual result: False
+Observation(left_token='W', left_raw='needed to be done. When Thomas W', punctuation_mark='.', right_token='Wathen', right_raw='Wathen went big league last year', is_true_break=False, end_offset=18077, orig_obs='needed to be done. When Thomas W. Wathen went big league last year')
+My prediction: False
+Actual result: True
+Observation(left_token='Inc', left_raw="curity business: Pinkerton's Inc", punctuation_mark='.', right_token='There', right_raw='There was a wanted poster offeri', is_true_break=True, end_offset=18224, orig_obs="curity business: Pinkerton's Inc. There was a wanted poster offeri")
+My prediction: True
+Actual result: False
+Observation(left_token='W', left_raw=' Robbers Frank James and Jesse W', punctuation_mark='.', right_token='James', right_raw='James" and the original Pinkerto', is_true_break=False, end_offset=18337, orig_obs=' Robbers Frank James and Jesse W. James" and the original Pinkerto')
+
+Note that the first two of these were also misclassified using the rule-based approach. And the third is another name issue. It seems to me like that is one of the more difficult issues to sort out--being able to classify names as names could be helpful.
+
+My main worry in both of these approaches, however, is that this works only for this data set. The data was very clean, so things were spelled the same way in multiple documents. Additionally, of course acronyms like "Corp", and "Inc" will come up in the Wall Street Journal. I suppose they would also come up in other corpora, but I bet these wouldn't work quite as well. I did follow J&M, so I trust this to be an accurate method, but for this to be generalizable to other corpora I think at the very least the acronymns dictionary would have to be updated to account for more general acronyms. 
+
+If I were to add to this: I would have a dictionary of proper nouns, as well as add to the acronyms list. I expect that if I added the "identity" of the left in right tokens (through perhaps a word embedding, or even maybe an index in a vocab dictionary) that could also improve the logistic regression. I would also have liked to try not engineering features at all, and using an LSTM of some kind instead.

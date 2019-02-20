@@ -1,0 +1,2 @@
+
+Reducing the embedding dimension means we can't "store" very much information in it. And, reducing the number of hidden layers often reduces the quality of the model. Thus, here we get an accuracy of about .60 instead of .89. When we trained with 10 embedding dimensions, we were able to "store" more information about the languages, and thus get a higher accuracy.
