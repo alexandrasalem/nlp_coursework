@@ -1,0 +1,17 @@
+Part 1: Model 1
+Note that I found this resource useful: http://mt-class.org/jhu/slides/lecture-ibm-model1.pdf
+
+My approach was pretty straightforward. I used nested default dictionaries to make the translation table and the various helper dictionaries. One issue I ran into was that once you run through sentences produced by the bitext() function, you can't run through the same sentences again. So, I had to recreate those sentences each time they were used.
+
+Part 2: BLEU
+The BLEU scores do not totally line up with my intuitions. For instance, look at sentence 7. 
+
+The reference sentence is the following: "HONOURABLE SENATORS , IT IS QUITE CLEAR THAT THE AGEING OF OUR POPULATION IS RESULTING IN MAJOR COST INCREASES ." 
+
+The google translate version is: "HONOURABLE SENATORS , IT IS CLEAR THAT OUR AGING POPULATION LEADS TO INCREASED COSTS FOR THE GOVERNMENT ."
+
+And the systran version is: "HONOURABLE SENATORS , IT IS OBVIOUS THAT THE AGEING OF OUR POPULATION INVOLVES INCREASES IN COSTS FOR THE GOVERNMENT ."
+
+The Google translate version gets a low BLEU score of .09 and the Systran version gets a score of .29. Both of these sentences are capturing pretty much the meaning of the reference sentence, and are fairly fluent. However, both get a bad score, and Google translate gets a pretty terrible score. This seems to show some of the issues with BLEU-- just lack of overlapping n-grams does not necessarily indicate a bad translation.
+
+I ran into one main issue with this. What to do when p_n = 0 for some n? That would give log(0) = -inf for that value, which throws an error. At first, I just said if it's 0, return log(p_n) = 0. But then, I changed to if p_n = 0, return a full BLEU score of 0 for that, since exp(-inf + anything) tends to 0. However, I think there could be better solutions to this. It would be better to incorporate smoothing of some kind, so setting p_n = .0001 instead of 0, or something like that. However, since the paper does not mention that as far as I can see, I chose to return 0 for those situations. 
